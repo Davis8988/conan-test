@@ -1,3 +1,5 @@
 **/*.vs/
+src/ConsoleApplication1/Debug/
+src/ConsoleApplication1/Release/
 
 
