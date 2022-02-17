@@ -1,5 +1,6 @@
 **/*.vs/
-src/StaticMath/Debug/
-src/StaticMath/Release/
+src/StaticMath/**/Debug/
+src/StaticMath/**/Release/
+
 
 
