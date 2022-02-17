@@ -1,5 +1,5 @@
 **/*.vs/
-src/ConsoleApplication1/Debug/
-src/ConsoleApplication1/Release/
+src/StaticMath/Debug/
+src/StaticMath/Release/
 
 
