@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include "headers/factorial.h"
 
 int main()
 {
