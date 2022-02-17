@@ -4,9 +4,15 @@
 #include <iostream>
 #include "headers/factorial.h"
 
+using namespace std;
 int main()
 {
-    std::cout << "Hello World!\n";
+    int some_int = 5;
+    int factorial_result = factorial(some_int);
+    std::cout << "Hello World!\nFactorial result is: " << factorial_result << "\n";
+    
+    std::cout << "\nDone\n";
+    system("pause");
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
