@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{0fc7355d-4d3b-4e08-9695-d8b00006aa43}</ProjectGuid>
-    <RootNamespace>StaticMath</RootNamespace>
+    <ProjectGuid>{6703b7fb-eb2d-4762-bac0-4e83d141a767}</ProjectGuid>
+    <RootNamespace>Printings</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -143,10 +143,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="headers\MathLibrary.h" />
+    <ClInclude Include="Printings.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="lib\MathLibrary.cpp" />
+    <ClCompile Include="Printings.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

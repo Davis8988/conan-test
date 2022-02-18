@@ -2,7 +2,7 @@
 // compile with: cl /c /EHsc MathLibrary.cpp
 // post-build command: lib MathLibrary.obj
 
-#include "../headers/MathLibrary.h"
+#include "MathLibrary.h"
 
 namespace MathLibrary
 {
