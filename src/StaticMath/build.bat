@@ -70,7 +70,7 @@ if exist "%logFilePath%" echo Removing log file: "%logFilePath%" && del /q "%log
 echo Done
 
 echo.
-pause
+timeout /t 2
 
 
 
