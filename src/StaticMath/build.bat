@@ -2,6 +2,15 @@
 
 set msbuildPath=C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Current\Bin\MSBuild.exe
 
+:: Color Printings
+set projectAlreadyUpToDate=
+set projectWasBuilt=
+set colorPrint=
+where cmdcolor > nul 2>&1 && set "projectAlreadyUpToDate=\033[30;42m"
+where cmdcolor > nul 2>&1 && set "projectWasBuilt=\033[41m"
+where cmdcolor > nul 2>&1 && set "colorPrint=| cmdcolor.exe"
+
+
 if not defined fileToBuildPath set fileToBuildPath=%~dp0StaticMath.sln
 if not defined buildConf set buildConf=Debug
 if not defined buildPlatform set buildPlatform=x64
@@ -58,10 +67,10 @@ set projectsUpToDateCount=0
 for /f %%a in ('type "%logFilePath%" ^| find /i "All outputs are up-to-date." /c') do (set projectsUpToDateCount=%%a)
 echo.
 echo projectsUpToDateCount=!projectsUpToDateCount!
-if /i "!projectsUpToDateCount!" equ "2" echo \033[30;42mOK - Project was already up to date | cmdcolor
-if /i "!projectsUpToDateCount!" equ "4" echo \033[30;42mOK - Project was already up to date | cmdcolor
-if /i "!projectsUpToDateCount!" equ "6" echo \033[30;42mOK - Project was already up to date | cmdcolor
-if /i "!projectsUpToDateCount!" equ "0" echo \033[41mNo - Project was built | cmdcolor
+if /i "!projectsUpToDateCount!" equ "2" echo %projectAlreadyUpToDate%OK - Project was already up to date %colorPrint%
+if /i "!projectsUpToDateCount!" equ "4" echo %projectAlreadyUpToDate%OK - Project was already up to date %colorPrint%
+if /i "!projectsUpToDateCount!" equ "6" echo %projectAlreadyUpToDate%OK - Project was already up to date %colorPrint%
+if /i "!projectsUpToDateCount!" equ "0" echo %projectWasBuilt%No - Project was built %colorPrint%
 echo.
 
 if exist "%logFilePath%" echo Removing log file: "%logFilePath%" && del /q "%logFilePath%"
