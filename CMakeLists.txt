@@ -11,6 +11,12 @@ set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
 
 
+
+# Conan
+include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
+conan_basic_setup()
+
+
 # Libs
 add_library (MathLibrary STATIC "${CMAKE_CURRENT_LIST_DIR}/src/StaticMath/MathLibrary/MathLibrary.cpp" )
 add_library (Printings STATIC "${CMAKE_CURRENT_LIST_DIR}/src/StaticMath/Printings/Printings.cpp" )
