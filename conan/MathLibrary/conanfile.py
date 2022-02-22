@@ -1,9 +1,11 @@
-from conans import ConanFile, CMake, tools
+from conans import ConanFile
+from conan import tools
+from tools.cmake import CMakeToolChain, CMake, cmake_layout
 import os
 
-package_project_name = "StaticMath"
-repo_root_dir = os.path.join("..")
-project_sources_dir = os.path.join(repo_root_dir, "src")
+package_project_name = "MathLibrary"
+# repo_root_dir = os.path.join("..", "..")
+# project_sources_dir = os.path.join(repo_root_dir, "src")
 project_build_dir = "build"
 
 class MathLibraryConan(ConanFile):
@@ -19,25 +21,34 @@ class MathLibraryConan(ConanFile):
     default_options = {"shared": False, "fPIC": True}
     build_policy = "missing"  # "always"
     generators = "cmake"
+    # requires = "StaticMath/0.0.1" 
     # exports_sources = [f"{repo_root_dir}/*"]
     
+	# Copy sources since they are located next to conanfile.py
     def export_sources(self):
-        self.copy(f"{repo_root_dir}/*", excludes="**/*CMakeCache.txt")
+        self.copy(f"*", excludes="**/*CMakeCache.txt")
     
-    def config_options(self):
-        self.settings.clear()
-    
-    def conan_info(self):
-        self.info.settings.clear()
-
     def config_options(self):
         if self.settings.os == "Windows":
             del self.options.fPIC
+			
+    def layout(self):
+		cmake_layout(self)
+	
+	def generate(self):
+		tc = CMakeToolChain(self)
+		print("Generating CMake configurations")
+		tc.generate()
+		
+    def conan_info(self):
+        self.settings.clear()
+        self.info.settings.clear()
+
 
     def build(self):
         print(f"Build procedure started")
+		sources_dir = os.getcwd()
         project_cmake_generator = "Visual Studio 16 2019"
-        sources_dir = os.getcwd()
         print(f"CD={sources_dir}")
         build_dir = os.path.join(sources_dir, 'build')
         print(f"Creating dir: {build_dir}")

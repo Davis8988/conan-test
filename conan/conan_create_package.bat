@@ -12,7 +12,7 @@ if %errorlevel% neq 0 echo Error - Failed to CD into: "%~dp0" && pause && exit /
 
 echo Packing MathLibrary using Conan 
 echo Executing: conan create "%conanFile%"
-conan create "%conanFile%"
+conan create "%conanFile%" testing/release
 if %errorlevel% neq 0 echo. && echo Error - Failure during execution of: conan create "%conanFile%" && echo Failed packing MathLibrary using Conan && echo. && pause && exit /b 1
 
 echo.
