@@ -1,6 +1,6 @@
 @echo off
 
-set conanFile=%~dp0conanfile_MathLibrary.py
+set conanFile=%~dp0conanfile.py
 
 where conan >nul 2>&1 || set PATH=%PATH%;C:\Program Files\Conan\conan
 where conan >nul 2>&1 || echo Error - Missing Conan from system path && pause && exit /b 1
@@ -23,3 +23,4 @@ echo.
 
 timeout /t 6
 
+pause

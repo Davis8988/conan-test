@@ -5,3 +5,13 @@
 **/*/x86/
 out/
 build/
+
+# Conan
+**/*conanbuildinfo.cmake
+**/*CMakeCache.txt
+**/*conan.lock
+**/*conanbuildinfo.cmake
+**/*conanbuildinfo.txt
+**/*conaninfo.txt
+**/*graph_info.json
+
