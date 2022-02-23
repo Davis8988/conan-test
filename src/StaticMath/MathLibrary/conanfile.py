@@ -15,8 +15,8 @@ class MathLibraryConan(ConanFile):
     url = "http://gitlab/DP99662/conan-test.git"
     description = "Testing package for Conan"
     topics = ("Test", "Math", package_project_name)
-    # settings = "os", "compiler", "build_type", "arch"
-    settings = "os", "compiler", "arch"
+    settings = "os", "compiler", "build_type", "arch"
+    # settings = "os", "compiler", "arch"  # Multi configuration project
     options = {"shared": [True, False], "fPIC": [True, False]}
     default_options = {"shared": False, "fPIC": True}
     build_policy = "missing"  # "always"
@@ -70,7 +70,7 @@ class MathLibraryConan(ConanFile):
     def package(self):
         self.output.info(f"Copying from: {os.getcwd()}")
         self.copy("*.h",        dst="include")
-        self.copy("*.lib",      src="build_out", dst="lib",  keep_path=True)
+        self.copy("*.lib",      src="build_out", dst="lib",  keep_path=False)
         self.copy("*.dll",      src="build_out", dst="bin",  keep_path=False)
         self.copy("*.so",       src="build_out", dst="lib",  keep_path=False)
         self.copy("*.dylib",    src="build_out", dst="lib",  keep_path=False)
