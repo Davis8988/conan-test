@@ -63,7 +63,7 @@ if ((DEFINED CONAN_LIB_DIRS) AND (NOT (CONAN_LIB_DIRS STREQUAL "")))
 endif()
 
 
-MESSAGE("Addin subdirectories: MathLibrary Printings MathClient")
+MESSAGE("Adding subdirectories: MathLibrary Printings MathClient")
 add_subdirectory("src/StaticMath/MathLibrary")
 add_subdirectory("src/StaticMath/Printings")
 add_subdirectory("src/StaticMath/MathClient")

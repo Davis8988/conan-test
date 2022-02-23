@@ -4,7 +4,6 @@ cmake_policy(SET CMP0054 NEW) # Must be set to NEW if want to avoid only interpr
 
 set(CurrentProjectName "MathClient")
 project (${CurrentProjectName})
-set(LIBRARIES_NAMES_TO_LINK_WITH "")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /std:c++14")
 include(CheckIncludeFileCXX)
 include(CheckIncludeFile)
@@ -14,6 +13,11 @@ MESSAGE("Outputting to: ${CMAKE_BINARY_DIR}/build_out")
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build_out/lib)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build_out/lib)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/build_out/bin)
+
+# Libraries to link with list
+set(LIBRARIES_NAMES_TO_LINK_WITH "")
+list(APPEND LIBRARIES_NAMES_TO_LINK_WITH "MathLibrary")
+list(APPEND LIBRARIES_NAMES_TO_LINK_WITH "Printings")
 
 
 # Conan - Load only if found 'conanbuildinfo.cmake' file
@@ -42,6 +46,9 @@ if (DEFINED CONAN_LIBS)
 	set(LIBRARIES_NAMES_TO_LINK_WITH "${LIBRARIES_NAMES_TO_LINK_WITH} ${CONAN_LIBS}")  # Append conan libs incase they exist
 	MESSAGE("LIBRARIES_NAMES_TO_LINK_WITH=${LIBRARIES_NAMES_TO_LINK_WITH}")
 endif()
+
+# Trim LIBRARIES_NAMES_TO_LINK_WITH var
+string(STRIP "${LIBRARIES_NAMES_TO_LINK_WITH}" LIBRARIES_NAMES_TO_LINK_WITH)
 
 
 # Add conan dirs if exist:
@@ -77,19 +84,26 @@ endif()
 
 
 # Libs - target only when required to
-MESSAGE("Trimming var: LIBRARIES_NAMES_TO_LINK_WITH='${LIBRARIES_NAMES_TO_LINK_WITH}'")
-string(STRIP "${LIBRARIES_NAMES_TO_LINK_WITH}" LIBRARIES_NAMES_TO_LINK_WITH)
-MESSAGE("Trimmed: LIBRARIES_NAMES_TO_LINK_WITH='${LIBRARIES_NAMES_TO_LINK_WITH}'")
-if (NOT ("MathLibrary" IN_LIST LIBRARIES_NAMES_TO_LINK_WITH))
-	MESSAGE("Adding target library 'MathLibrary' on: ${CMAKE_CURRENT_LIST_DIR}/../MathLibrary/MathLibrary.cpp")
-	add_library (MathLibrary STATIC "${CMAKE_CURRENT_LIST_DIR}/../MathLibrary/MathLibrary.cpp" )
-	list(APPEND LIBRARIES_NAMES_TO_LINK_WITH "MathLibrary")
+set(CMAKE_CHECK_LIBRARY_FILE_NAME "MathLibrary")
+MESSAGE(STATUS "Checking if library '${CMAKE_CHECK_LIBRARY_FILE_NAME}' exists")
+if(NOT TARGET "${CMAKE_CHECK_LIBRARY_FILE_NAME}")
+	unset(FOUND_LIBRARY_FILE_PATH)
+	find_library(FOUND_LIBRARY_FILE_PATH "${CMAKE_CHECK_LIBRARY_FILE_NAME}")
+	if ((NOT DEFINED FOUND_LIBRARY_FILE_PATH) OR (NOT FOUND_LIBRARY_FILE_PATH))
+		MESSAGE("Adding target library '${CMAKE_CHECK_LIBRARY_FILE_NAME}' on: ${CMAKE_CURRENT_LIST_DIR}/../${CMAKE_CHECK_LIBRARY_FILE_NAME}/${CMAKE_CHECK_LIBRARY_FILE_NAME}.cpp")
+		add_library (${CMAKE_CHECK_LIBRARY_FILE_NAME} STATIC "${CMAKE_CURRENT_LIST_DIR}/../${CMAKE_CHECK_LIBRARY_FILE_NAME}/${CMAKE_CHECK_LIBRARY_FILE_NAME}.cpp" )
+	endif()
 endif()
 
-if (NOT ("Printings" IN_LIST LIBRARIES_NAMES_TO_LINK_WITH))
-	MESSAGE("Adding target library 'Printings' on: ${CMAKE_CURRENT_LIST_DIR}/../Printings/Printings.cpp")
-	add_library (Printings STATIC "${CMAKE_CURRENT_LIST_DIR}/../Printings/Printings.cpp" )
-	list(APPEND LIBRARIES_NAMES_TO_LINK_WITH "Printings")
+set(CMAKE_CHECK_LIBRARY_FILE_NAME "Printings")
+MESSAGE(STATUS "Checking if library '${CMAKE_CHECK_LIBRARY_FILE_NAME}' exists")
+if(NOT TARGET "${CMAKE_CHECK_LIBRARY_FILE_NAME}")
+	unset(FOUND_LIBRARY_FILE_PATH)
+	find_library(FOUND_LIBRARY_FILE_PATH "${CMAKE_CHECK_LIBRARY_FILE_NAME}")
+	if ((NOT DEFINED FOUND_LIBRARY_FILE_PATH) OR (NOT FOUND_LIBRARY_FILE_PATH))
+		MESSAGE("Adding target library '${CMAKE_CHECK_LIBRARY_FILE_NAME}' on: ${CMAKE_CURRENT_LIST_DIR}/../${CMAKE_CHECK_LIBRARY_FILE_NAME}/${CMAKE_CHECK_LIBRARY_FILE_NAME}.cpp")
+		add_library (${CMAKE_CHECK_LIBRARY_FILE_NAME} STATIC "${CMAKE_CURRENT_LIST_DIR}/../${CMAKE_CHECK_LIBRARY_FILE_NAME}/${CMAKE_CHECK_LIBRARY_FILE_NAME}.cpp" )
+	endif()
 endif()
 
 
